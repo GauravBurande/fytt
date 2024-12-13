@@ -127,7 +127,7 @@ export default function FoodNutritionAnalyzer() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/20 to-primary/40 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
       {/* <motion.header
         initial={{ opacity: 0, y: -50 }}
@@ -148,7 +148,7 @@ export default function FoodNutritionAnalyzer() {
           transition={{ duration: 0.5 }}
           className="w-full max-w-xl"
         >
-          <Card className="rounded-xl shadow-2xl border-none">
+          <Card className="rounded-xl">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold">
                 Instant Nutrition Insights
@@ -181,7 +181,7 @@ export default function FoodNutritionAnalyzer() {
                       >
                         <div
                           className={`
-                          border-2 border-dashed rounded-lg p-8 text-center 
+                          border-2 border-dashed border-primary rounded-lg p-8 text-center 
                           transition-all duration-300
                           ${
                             imagePreview
@@ -296,7 +296,7 @@ export default function FoodNutritionAnalyzer() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-4xl bg-card rounded-xl shadow-lg p-8" // Add margin-top for spacing
+          className="w-full max-w-4xl bg-card border rounded-xl p-8" // Add margin-top for spacing
         >
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold flex items-center justify-center">
