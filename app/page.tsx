@@ -47,7 +47,7 @@ interface NutritionData {
 }
 
 export default function FoodNutritionAnalyzer() {
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<String | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [nutritionData, setNutritionData] = useState<NutritionData | null>(
     null
@@ -74,17 +74,21 @@ export default function FoodNutritionAnalyzer() {
         return;
       }
 
-      // Create preview
+      // Create preview (base64 format)
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string);
+        const base64Image = reader.result as string; // Base64 string
+        setImagePreview(base64Image); // Store the image preview in base64
+        setImage(base64Image); // Store the actual image as base64 data
       };
+
+      // Read the file as a data URL (base64 string)
       reader.readAsDataURL(file);
 
-      setImage(file);
+      // Reset error message
       setError(null);
     },
-    []
+    [] // The empty dependency array ensures that the callback only changes if any of the external variables inside change.
   );
 
   const handleImageIdentify = async () => {
@@ -97,20 +101,26 @@ export default function FoodNutritionAnalyzer() {
     setError(null);
 
     try {
-      const formData = new FormData();
-      formData.append("image", image);
+      // If `image` is a base64 string, extract the MIME type and the base64 data
+
+      // Create a payload to send to the API
+      const payload = {
+        image, // The actual base64-encoded image data
+      };
 
       // Replace with your actual nutrition API endpoint
       const response = await fetch("/api/food-nutrition", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json", // Sending JSON data
+        },
+        body: JSON.stringify(payload), // Convert the payload to a JSON string
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to identify food");
-      }
-
       const data: NutritionData = await response.json();
+      if (!response.ok) {
+        throw new Error((data as any).error);
+      }
       setNutritionData(data);
     } catch (err) {
       setError((err as Error).message);
@@ -246,7 +256,7 @@ export default function FoodNutritionAnalyzer() {
                         <h2 className="text-2xl font-bold text-primary">
                           {nutritionData.name}
                         </h2>
-                        <p className="text-primary/60">Nutrition Decoded</p>
+                        <p className="text-primary/60">This food contains</p>
                       </div>
                     </div>
 
@@ -254,25 +264,25 @@ export default function FoodNutritionAnalyzer() {
                       <NutritionCard
                         icon={<Flame className="text-orange-500" />}
                         title="Calories"
-                        value={`${nutritionData.calories} kcal`}
+                        value={`${nutritionData.calories} kcal per 100g`}
                         description="Your energy blueprint"
                       />
                       <NutritionCard
                         icon={<Salad className="text-green-500" />}
                         title="Protein"
-                        value={`${nutritionData.protein}g`}
+                        value={`${nutritionData.protein}g per 100g`}
                         description="Muscle's best friend"
                       />
                       <NutritionCard
                         icon={<Flame className="text-blue-500" />}
                         title="Carbs"
-                        value={`${nutritionData.carbs}g`}
+                        value={`${nutritionData.carbs}g per 100g`}
                         description="Your fuel tank"
                       />
                       <NutritionCard
                         icon={<Flame className="text-red-500" />}
                         title="Fat"
-                        value={`${nutritionData.fat}g`}
+                        value={`${nutritionData.fat}g per 100g`}
                         description="Essential essentials"
                       />
                     </div>
