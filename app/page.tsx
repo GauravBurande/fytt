@@ -300,7 +300,7 @@ export default function FoodNutritionAnalyzer() {
         >
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold flex items-center justify-center">
-              <Zap className="mr-3" /> How Fitty Works
+              <Zap className="mr-3" /> How It Works
             </h2>
             <p className="mt-2">
               Nutrition insights are just three simple steps away
