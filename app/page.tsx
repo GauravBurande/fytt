@@ -14,8 +14,6 @@ import { Input } from "@/components/ui/input";
 import {
   AlertCircle,
   Camera,
-  Salad,
-  Flame,
   CheckCircle2,
   Sparkles,
   Zap,
@@ -43,6 +41,7 @@ interface NutritionData {
   protein: number;
   carbs: number;
   fat: number;
+  note: string;
   imageUrl?: string;
 }
 
@@ -156,7 +155,7 @@ export default function FoodNutritionAnalyzer() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-xl"
+          className="w-full max-w-2xl"
         >
           <Card className="rounded-xl">
             <CardHeader className="text-center">
@@ -250,42 +249,52 @@ export default function FoodNutritionAnalyzer() {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-6"
                   >
+                    <Image
+                      src={imagePreview as string}
+                      alt="Food Preview"
+                      width={400}
+                      height={400}
+                      objectFit="contain"
+                      className="max-w-full mx-auto max-h-[400px] rounded-md"
+                    />
                     <div className="flex items-center justify-center mb-6">
                       <CheckCircle2 className="w-16 h-16 text-primary/60 mr-4" />
                       <div>
-                        <h2 className="text-2xl font-bold text-primary">
+                        <h2 className="text-2xl font-bold">
                           {nutritionData.name}
                         </h2>
-                        <p className="text-primary/60">This food contains</p>
+                        <p>Per 100g of This food contains</p>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       <NutritionCard
-                        icon={<Flame className="text-orange-500" />}
+                        icon={"❤️"}
                         title="Calories"
-                        value={`${nutritionData.calories} kcal per 100g`}
+                        value={`${nutritionData.calories} kcal`}
                         description="Your energy blueprint"
                       />
                       <NutritionCard
-                        icon={<Salad className="text-green-500" />}
+                        icon={"🍗"}
                         title="Protein"
-                        value={`${nutritionData.protein}g per 100g`}
+                        value={`${nutritionData.protein}g`}
                         description="Muscle's best friend"
                       />
                       <NutritionCard
-                        icon={<Flame className="text-blue-500" />}
+                        icon={"🍚"}
                         title="Carbs"
-                        value={`${nutritionData.carbs}g per 100g`}
+                        value={`${nutritionData.carbs}g`}
                         description="Your fuel tank"
                       />
                       <NutritionCard
-                        icon={<Flame className="text-red-500" />}
+                        icon={"🔥"}
                         title="Fat"
-                        value={`${nutritionData.fat}g per 100g`}
+                        value={`${nutritionData.fat}g`}
                         description="Essential essentials"
                       />
                     </div>
+
+                    <p>{nutritionData.note}</p>
 
                     <Button
                       onClick={resetAnalysis}
@@ -359,15 +368,17 @@ export default function FoodNutritionAnalyzer() {
 
 // Nutrition Card Component
 const NutritionCard: React.FC<{
-  icon: React.ReactNode;
+  icon: string;
   title: string;
   value: string;
   description?: string;
 }> = ({ icon, title, value, description }) => (
-  <div className="bg-card p-4 rounded-lg shadow-md flex items-center space-x-4">
-    <div className="p-3 bg-emerald-50 rounded-full">{icon}</div>
+  <div className="bg-white p-4 rounded-xl border flex flex-wrap items-center space-x-4">
+    <div className="p-3 w-[53px] flex items-center justify-center text-lg bg-primary/20 rounded-full">
+      {icon}
+    </div>
     <div>
-      <p className="text-sm text-muted-foreground">{title}</p>
+      <p className="text-sm text-muted-foreground font-semibold">{title}</p>
       <p className="text-xl font-bold text-primary">{value}</p>
       {description && (
         <p className="text-xs text-muted-foreground mt-1">{description}</p>

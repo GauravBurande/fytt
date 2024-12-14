@@ -66,6 +66,10 @@ export async function POST(req: NextRequest) {
           type: SchemaType.NUMBER,
           description: "Fat per 100g",
         },
+        note: {
+          type: SchemaType.STRING,
+          description: "Additional notes or comments on that food",
+        },
       },
       required: ["name", "calories", "protein", "carbs", "fat"],
     };
@@ -89,6 +93,7 @@ export async function POST(req: NextRequest) {
       - Protein (per 100g)
       - Carbohydrates (per 100g)
       - Fat (per 100g)
+      - Additional notes or comments on that food
     `;
 
     // Send the image data to Google Generative AI API with the nutrition extraction prompt
@@ -137,7 +142,8 @@ export async function POST(req: NextRequest) {
       !nutritionData.calories ||
       !nutritionData.protein ||
       !nutritionData.carbs ||
-      !nutritionData.fat
+      !nutritionData.fat ||
+      !nutritionData.note
     ) {
       return NextResponse.json(
         {
