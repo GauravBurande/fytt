@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
 
     // Prepare the prompt for extracting nutrition information
     const prompt = `
-    I DON'T WANT A NO OR ANY REASONS, WHATEVER THE IMAGE IS GET ME THE FOLLOWING INFO BY FIGURING IT OUT EVERYTHING OTHERWISE 
+    I DON'T WANT A NO OR ANY REASONS, WHATEVER THE IMAGE IS GET ME THE FOLLOWING INFO BY FIGURING IT OUT OTHERWISE 
     THE PERSON DIES
       Analyze the food item in the provided image and extract the following nutritional information:
       - Name of the food

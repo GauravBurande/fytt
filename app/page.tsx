@@ -146,7 +146,7 @@ export default function FoodNutritionAnalyzer() {
       >
         <div className="flex items-center bg-primary/20 p-3 rounded-full space-x-3">
           <Salad className="text-primary/60 w-8 h-8" />
-          <h1 className="text-3xl font-bold">Fitty</h1>
+          <h1 className="text-3xl font-bold">Fytt</h1>
         </div>
       </motion.header> */}
 
@@ -334,7 +334,7 @@ export default function FoodNutritionAnalyzer() {
               <h3 className="font-bold mb-2">Snap Your Meal</h3>
               <p className="text-muted-foreground">
                 Capture a clear image of your food. From restaurant plates to
-                home-cooked meals, Fitty can analyze it all.
+                home-cooked meals, Fytt can analyze it all.
               </p>
             </div>
 
