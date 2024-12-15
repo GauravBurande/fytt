@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="Fytt" content="Fytt" />
+      </head>
       <body className={inter.className}>{children}</body>
       <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
     </html>

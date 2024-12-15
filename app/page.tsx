@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion, AnimatePresence } from "framer-motion";
+import InstallPrompt from "@/components/InstallPrompt";
 
 // Accepted MIME types
 const ACCEPTED_MIME_TYPES = [
@@ -137,6 +138,7 @@ export default function FoodNutritionAnalyzer() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <InstallPrompt />
       {/* Header */}
       {/* <motion.header
         initial={{ opacity: 0, y: -50 }}
