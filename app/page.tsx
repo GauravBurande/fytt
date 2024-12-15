@@ -233,7 +233,7 @@ export default function FoodNutritionAnalyzer() {
                           className="w-full mt-6 bg-emerald-600 hover:bg-emerald-700"
                         >
                           {isLoading
-                            ? "Decoding Deliciousness..."
+                            ? "Decoding nutrition..."
                             : "Reveal Nutrition"}
                         </Button>
                       )}
@@ -366,28 +366,21 @@ export default function FoodNutritionAnalyzer() {
           </div>
         </motion.div>
         {/* button to contact via email: contact@gauravvan.com */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-4xl bg-card border rounded-xl p-8 mt-8" // Add margin-top for spacing
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold flex items-center justify-center">
+            <Mail className="mr-3" /> Contact
+          </h2>
+          <p className="mt-2">
+            For any queries or suggestions, you can reach out to me
+          </p>
+        </div>
+        <Button
+          onClick={() => window.open("mailto:contact@gauravvan.com")}
+          variant="outline"
+          className="w-full mt-6 hover:text-foreground"
         >
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold flex items-center justify-center">
-              <Mail className="mr-3" /> Contact
-            </h2>
-            <p className="mt-2">
-              For any queries or suggestions, you can reach out to me
-            </p>
-          </div>
-          <Button
-            onClick={() => window.open("mailto:contact@gauravvan.com")}
-            variant="outline"
-            className="w-full mt-6 hover:text-foreground"
-          >
-            Contact me
-          </Button>
-        </motion.div>
+          Contact me
+        </Button>
       </main>
       <BuyMeCoffee />
     </div>
