@@ -18,6 +18,7 @@ import {
   Sparkles,
   Zap,
   Target,
+  Coffee,
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion, AnimatePresence } from "framer-motion";
@@ -137,7 +138,7 @@ export default function FoodNutritionAnalyzer() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
       <InstallPrompt />
       {/* Header */}
       {/* <motion.header
@@ -364,9 +365,30 @@ export default function FoodNutritionAnalyzer() {
           </div>
         </motion.div>
       </main>
+      <BuyMeCoffee />
     </div>
   );
 }
+
+const BuyMeCoffee = () => {
+  const handleCoffeeSupport = () => {
+    window.open(
+      "https://buymeacoffee.com/gauravvan",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  return (
+    <Button
+      onClick={handleCoffeeSupport}
+      className="bg-primary text-foreground fixed bottom-10 right-10 hover:bg-primary/90"
+    >
+      <Coffee className="mr-2 h-4 w-4" />
+      Buy Me a Coffee
+    </Button>
+  );
+};
 
 // Nutrition Card Component
 const NutritionCard: React.FC<{
