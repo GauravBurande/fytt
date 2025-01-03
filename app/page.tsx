@@ -20,10 +20,17 @@ import {
   Target,
   Coffee,
   Mail,
+  InfoIcon,
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion, AnimatePresence } from "framer-motion";
 import InstallPrompt from "@/components/InstallPrompt";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Accepted MIME types
 const ACCEPTED_MIME_TYPES = [
@@ -45,6 +52,7 @@ interface NutritionData {
   carbs: number;
   fat: number;
   note: string;
+  healthScore: number;
   imageUrl?: string;
 }
 
@@ -136,6 +144,22 @@ export default function FoodNutritionAnalyzer() {
     setImagePreview(null);
     setNutritionData(null);
     setError(null);
+  };
+
+  const getColor = (score: number) => {
+    if (score >= 80) return "bg-emerald-500";
+    if (score >= 60) return "bg-lime-500";
+    if (score >= 40) return "bg-yellow-500";
+    if (score >= 20) return "bg-orange-500";
+    return "bg-red-500";
+  };
+
+  const getStatusText = (score: number) => {
+    if (score >= 80) return "Excellent";
+    if (score >= 60) return "Good";
+    if (score >= 40) return "Fair";
+    if (score >= 20) return "Poor";
+    return "Critical";
   };
 
   return (
@@ -298,6 +322,50 @@ export default function FoodNutritionAnalyzer() {
                       />
                     </div>
 
+                    <Card className="w-full p-4">
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-lg font-semibold text-foreground">
+                              Health Score
+                            </h3>
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <InfoIcon className="h-4 w-4 text-muted-foreground hover:text-primary" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="text-sm">
+                                    Overall health score based on nutritional
+                                    value
+                                  </p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl font-bold text-foreground">
+                              {nutritionData.healthScore}%
+                            </span>
+                            <span className="text-sm text-muted-foreground">
+                              ({getStatusText(nutritionData.healthScore)})
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="relative h-4 w-full rounded-full bg-secondary overflow-hidden">
+                          <div
+                            className={`absolute top-0 left-0 h-full transition-all duration-500 ease-out ${getColor(
+                              nutritionData.healthScore
+                            )}`}
+                            style={{
+                              width: `${nutritionData.healthScore}%`,
+                              boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1)",
+                            }}
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
                     <p>{nutritionData.note}</p>
 
                     <Button
